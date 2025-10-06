@@ -1,21 +1,39 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>M Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M SHOP</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="kartu-profil">
-        <!-- Konten yang terlihat oleh pengunjung akan ada disini -->
-        <img src="foto-profil.jpg" alt="foto profil saya" width="200" height="200">
+        <!-- Foto Profil -->
+        <img src="foto-profil.jpg" alt="Foto profil saya" class="foto-profil">
+        
+        <!-- Nama & Deskripsi -->
         <h1>M SHOP</h1>
-        <p>All Your Need In Here !.
-   Will Be Your Best Friend!</p>
-  <a href="https://www.instagram.com/usernameanda">kunjungi
-Instagram Saya</a>a>
+        <p>All Your Need In Here!<br>Will Be Your Best Friend!</p>
+
+        <!-- Link Instagram -->
+        <a href="https://www.instagram.com/usernameanda" target="_blank" class="instagram">
+            Kunjungi Instagram Saya
+        </a>
+
+        <!-- Tombol interaktif -->
         <button id="sapaButton">Sapa saya!</button>
+
+        <!-- Tombol Dark Mode -->
+        <div class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</div>
     </div>
-  <script src="script.js"></script>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
+
