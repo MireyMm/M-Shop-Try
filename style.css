@@ -1,0 +1,95 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #a7fce4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    transition: background-color 0.3s;
+    margin: 0;
+}
+
+.kartu-profil {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 300px;
+    transition: 0.3s;
+}
+
+.kartu-profil:hover {
+    transform: scale(1.02);
+}
+
+.foto-profil {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #2b2b6f;
+    font-size: 24px;
+}
+
+p {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.instagram {
+    display: inline-block;
+    background-color: #e1306c;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: background 0.3s;
+}
+
+.instagram:hover {
+    background-color: #c2255a;
+}
+
+button {
+    background-color: #25D366;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #1da851;
+}
+
+.dark-mode-toggle {
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: underline;
+    color: #333;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+}
+
+body.dark-mode .kartu-profil {
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+body.dark-mode .dark-mode-toggle {
+    color: #ccc;
+}
