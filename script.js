@@ -1,130 +1,98 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+vconst products = [
+  { id: 1, name: "Beras 5kg", price: 65000 },
+  { id: 2, name: "Minyak Goreng 1L", price: 18000 },
+  { id: 3, name: "Gula Pasir 1kg", price: 15000 },
+  { id: 4, name: "Indomie Goreng", price: 3000 },
+  { id: 5, name: "Telur Ayam 1kg", price: 27000 },
+  { id: 6, name: "Susu Kental Manis", price: 12000 },
+  { id: 7, name: "Sabun Mandi", price: 8000 },
+  { id: 8, name: "Shampo Sachet", price: 2000 }
+];
+
+let cart = [];
+
+function displayProducts(items) {
+  const list = document.getElementById("product-list");
+  list.innerHTML = "";
+
+  items.forEach(product => {
+    const div = document.createElement("div");
+    div.className = "product";
+    div.innerHTML = `
+      <h3>${product.name}</h3>
+      <p>Rp ${product.price.toLocaleString()}</p>
+      <button onclick="addToCart(${product.id})">Tambah</button>
+    `;
+    list.appendChild(div);
+  });
 }
 
-body {
-  background: #f2f2f2;
-  color: #333;
-  padding: 20px;
+function addToCart(id) {
+  const item = products.find(p => p.id === id);
+  const existing = cart.find(c => c.id === id);
+
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ ...item, qty: 1 });
+  }
+
+  updateCart();
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
+function updateCart() {
+  const cartList = document.getElementById("cart-items");
+  cartList.innerHTML = "";
+
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price * item.qty;
+    const li = document.createElement("li");
+    li.textContent = `${item.name} x ${item.qty}`;
+    cartList.appendChild(li);
+  });
+
+  document.getElementById("total").textContent = `Rp ${total.toLocaleString()}`;
 }
 
-header h1 {
-  font-size: 2em;
-  color: #2ecc71;
+function checkout() {
+  if (cart.length === 0) {
+    alert("Keranjang kosong!");
+    return;
+  }
+
+  const now = new Date();
+  let receiptText = `=== NOTA PEMBAYARAN ===\n`;
+  receiptText += `Tanggal: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}\n\n`;
+
+  let grandTotal = 0;
+
+  cart.forEach(item => {
+    const subtotal = item.price * item.qty;
+    receiptText += `${item.name} x ${item.qty} = Rp ${subtotal.toLocaleString()}\n`;
+    grandTotal += subtotal;
+  });
+
+  receiptText += `\nTotal: Rp ${grandTotal.toLocaleString()}\n`;
+  receiptText += `\nTerima kasih telah berbelanja di M Shop!`;
+
+  document.getElementById("receipt").textContent = receiptText;
+  document.getElementById("receipt-section").classList.add("show");
+
+  cart = [];
+  updateCart();
 }
 
-header h1 span {
-  color: #333;
+function closeReceipt() {
+  document.getElementById("receipt-section").classList.remove("show");
 }
 
-#searchInput {
-  padding: 10px;
-  width: 220px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
+document.getElementById("searchInput").addEventListener("input", e => {
+  const keyword = e.target.value.toLowerCase();
+  const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
+  displayProducts(filtered);
+});
 
-main {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-#product-list {
-  flex: 2;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-.product {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 15px;
-  text-align: center;
-  transition: 0.3s;
-}
-
-.product:hover {
-  transform: scale(1.03);
-}
-
-.product h3 {
-  margin-bottom: 8px;
-}
-
-.product p {
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.product button {
-  background: #2ecc71;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#cart {
-  flex: 1;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 20px;
-  height: fit-content;
-}
-
-#cart h2 {
-  margin-bottom: 10px;
-}
-
-#cart-items {
-  list-style: none;
-  margin-bottom: 10px;
-}
-
-#cart-items li {
-  margin-bottom: 5px;
-}
-
-#cart button {
-  background: #e67e22;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#receipt-section {
-  margin-top: 30px;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  display: none;
-}
-
-#receipt-section.show {
-  display: block;
-}
-
-#receipt {
-  background: #f1f1f1;
-  padding: 15px;
-  border-radius: 8px;
-  font-family: monospace;
-}
-
+// Load awal
+displayProducts(products);
